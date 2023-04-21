@@ -1,5 +1,5 @@
 # Countries List
-This is a small exercise for fetching data from a json file. It has a search bar for us to search for countries and it displays 15 countries in a grid. For each country card there is the flag, country name and capital. the user can click to see more details abou the clicked country.
+This is a small exercise in fetching data from a JSON file. It includes a search bar that allows users to search for countries and displays the results in a grid format, showing 15 countries at a time. Each country card includes the flag, country name, and capital. Additionally, users can click on any card to see more details about that country.
 
 ## 🛠️ Getting Started
 
@@ -15,7 +15,7 @@ Once you have Node.js installed, follow these steps to run the project:
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Compile and Hot-Reload
 
 ```sh
 npm run dev
