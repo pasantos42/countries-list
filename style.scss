@@ -1,0 +1,34 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(71, 71, 71);
+  margin: 50px;
+}
+
+.countries-grid {
+  display: grid;
+  grid-template-columns: repeat( auto-fill, minmax(350px, 1fr));
+  grid-template-rows: repeat( auto-fill, 1fr);
+  gap: 20px;
+  
+  .card {
+  cursor: pointer;
+  height: 300px;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  filter: drop-shadow(0px 0px 8px black);
+  
+  img {
+    width: 100px;
+  }
+
+    &.active {
+      height: 600px;
+      grid-column: 1 / 4;
+      order: -1;
+    }
+  }
+}
