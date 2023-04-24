@@ -37,6 +37,7 @@ async function fetchCountry(input)
     {
       const card = document.createElement('a');
       const flag = document.createElement('img');
+      const details = document.createElement('div');
       const name = document.createElement('p');
       const capital = document.createElement('p');
       const area = document.createElement('p');
@@ -45,50 +46,71 @@ async function fetchCountry(input)
       const languages = document.createElement('p');
       const population = document.createElement('p');
       const subregion = document.createElement('p');
+      const dependancy = document.createElement('p');
+      const timezone = document.createElement('p');
       
       flag.setAttribute('src', data[i].flags.svg);
       name.innerText = data[i].name.common;
       capital.innerText = data[i].capital[0];
-      area.innerText = data[i].area;
-      continents.innerText = data[i].continents;
-      currencies.innerText = data[i].currencies;
-      languages.innerText = data[i].languages;
-      population.innerText = data[i].population;
-      subregion.innerText = data[i].subregion;
+      area.innerText = `Area: ${data[i].area} km²`;
+      continents.innerText = `Continent: ${data[i].continents}`;
+      languages.innerText = `Languages: ${Object.values(data[i].languages).slice(0, 4).join(' | ')}`;
+      population.innerText = `${data[i].population} inhabitants`;
+      subregion.innerText = `Region: ${data[i].subregion}`;
+      timezone.innerText = `Timezone: ${data[i].timezones[0]}`
+      if (data[i].independent == true) {
+        dependancy.innerText = 'independent';
+      } else {
+        dependancy.innerText = 'dependent';
+      }
 
       card.classList.add('card');
-      name.classList.add('name');
-      capital.classList.add('capital');
+      card.classList.add('card--invisible');
+      name.classList.add('card__info');
+      name.classList.add('card__info--primary');
+      capital.classList.add('card__info');
+      capital.classList.add('card__info--secondary')
+      flag.classList.add('card__flag');
+      details.classList.add('card__details');
 
       grid.insertAdjacentElement('beforeend', card);
       card.insertAdjacentElement('beforeend', flag);
+
       card.insertAdjacentElement('beforeend', name);
       card.insertAdjacentElement('beforeend', capital);
       
-      card.insertAdjacentElement('beforeend', area);
-      card.insertAdjacentElement('beforeend', continents);
-      card.insertAdjacentElement('beforeend', currencies);
-      card.insertAdjacentElement('beforeend', languages);
-      card.insertAdjacentElement('beforeend', population);
-      card.insertAdjacentElement('beforeend', subregion);
+      details.insertAdjacentElement('beforeend', area);
+      details.insertAdjacentElement('beforeend', languages);
+      details.insertAdjacentElement('beforeend', population);
+      details.insertAdjacentElement('beforeend', continents);
+      details.insertAdjacentElement('beforeend', subregion);
+      details.insertAdjacentElement('beforeend', dependancy);
+      details.insertAdjacentElement('beforeend', timezone);
 
       setTimeout(() => {  
-        card.classList.add('visible');
+        card.classList.remove('card--invisible');
       }, i * 100);
 
       card.setAttribute('href', '#');
       card.setAttribute('id', `card${i}`);
 
       card.addEventListener('click', function() {
-        if (card.classList.contains('active')) {
-          card.classList.remove('active');
+        if (card.classList.contains('card--active')) {
+          capital.innerText = data[i].capital[0];
+          card.insertAdjacentElement('beforeend', capital);
+          capital.classList.add('card__info--secondary');
+          card.classList.remove('card--active');
+          details.remove();
           setTimeout(() => {
             card.removeAttribute('href', `#card${i - 3}`);
             card.setAttribute('href', '#');
           }, 500);
         } else {
-          card.classList.add('active')
-          capital.innerText = `CAPITAL: ${data[i].capital[0]}`;
+          card.classList.add('card--active');
+          capital.classList.remove('card__info--secondary');
+          card.insertAdjacentElement('beforeend', details);
+          capital.innerText = `Capital: ${data[i].capital[0]}`;
+          details.insertAdjacentElement('afterbegin', capital);
           setTimeout(() => {
             card.removeAttribute('href', '#');
             card.setAttribute('href', `#card${i - 3}`);
@@ -96,7 +118,6 @@ async function fetchCountry(input)
         }
       })
     }
-    
   } catch (error) {
     log.innerText = 'unable to fetch countries';
   }

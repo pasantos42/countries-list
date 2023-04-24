@@ -1,155 +1,155 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
+$light-gray: hsl(0, 0%, 83%);
+$gray: hsl(0, 0%, 50%);
+$green: hsl(157, 85%, 74%);
+$small-radius: 5px;
+$large-radius: 10px;
+$grid-gap: 20px;
+
 html {
   scroll-behavior: smooth;
-}
-
-body {
   font-family: 'Poppins', sans-serif;
-  margin-bottom: 100px;
-}
-
-header {
-  text-align: center;
-  border-bottom: none;
-  border-radius: 5px;
-  width: fit-content;
-  margin-inline: auto;
-  display: grid;
-  gap: 5px;
-  grid-template-columns: 1fr 20%;
-  margin-bottom: 50px;
-}
-
-h1 {
-  grid-column: 1 / span 2;
-  text-transform: uppercase;
-  color:gray;
-  margin-bottom: 0;
-}
-
-button {
-  color: rgb(116, 116, 116);
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
-  text-transform: uppercase;
   font-weight: bold;
 }
 
-input {
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: lightgray;
+.header {
+  display: grid;
+  gap: 5px;
+  margin-inline: auto;
+  margin-bottom: 50px;
+  width: fit-content;
+  text-align: center;
+
+  &__title {
+    grid-column: 1 / span 2;
+    margin-bottom: 0;
+    color:$gray;
+  }
   
-  &:focus {
+  &__input-bar {
+    padding: 5px 10px;
     outline: none;
+    border: none;
+    border-radius: $small-radius;
+    background-color: $light-gray;
+  }
+
+  &__button {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    padding: 5px;
+    border-radius: $small-radius;
+    border: none;
+
+    &:hover {
+      background-color: $green;
+    }
   }
 }
 
 .countries-grid {
-  min-height: 60vh;
-  border: 2px solid rgb(224, 224, 224);
-  margin-inline: auto;
-  border-radius: 10px;
-  padding: 20px;
   display: grid;
-  grid-template-columns: repeat( auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $grid-gap;
+  margin-inline: auto;
+  margin-block: 80px;
+  padding: $grid-gap;
+  border: 2px solid rgb(224, 224, 224);
+  border-radius: $large-radius;
+  min-height: 65vh;
   max-width: 1024px;
   
   .card {
-    opacity: 0;
-    transform: translateY(20px);
-    position: relative;
     cursor: pointer;
-    width: 100%;
-    height: 220px;
-    background-color: white;
-    border-radius: 5px;
-    filter: drop-shadow(0px 0px 8px black);
-    text-decoration: none !important;
-    text-transform: uppercase;
-    font-weight: bold;
     color: white;
-    overflow: hidden;
-    transition: filter 0.3s ease-in-out;
-  
-  &:hover {
-    filter: drop-shadow(0px 0px 8px rgb(107, 107, 107));
-    transition: filter 0.3s ease-in-out;
-  }
-
-  &.visible {
-    transition: opacity 0.3s, transform 0.3s;
     opacity: 1;
-    transform: translateY(0);
-  }
-
-  img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    filter: contrast(0.8);
-  }
-
-  p {
-    border-radius: 5px;
-    margin: 10px;
-    width: fit-content;
-    padding: 5px 10px;
-    background-color: rgba(0, 0, 0, 0.705);
-  }
-  .name {
-    border-radius: 5px;
-    margin: 10px;
-    width: fit-content;
-    padding: 5px 10px;
-    background-color: rgba(0, 0, 0, 0.705);
-    position: absolute;
-    bottom: 0px;
-    
-  }
-  .capital {
-    border-radius: 5px;
-    margin: 10px;
-    width: fit-content;
-    padding: 5px 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    bottom: 0;
-    font-weight: normal;
-    font-size: 0.7rem;
-    bottom: 38px;
-  }
+    overflow: hidden;
+    transform: translateY(0px);
+    min-height: 220px;
+    background-color: white;
+    border-radius: $small-radius;
+    filter: drop-shadow(0px 0px 8px black);
+    text-decoration: none;
+    transition: opacity 0.3s, transform 0.3s, filter 0.3s ease-in-out;
   
-  &.active {
-    display: grid;
-    grid-auto-flow: column;
-    justify-items: start;
-    text-transform: capitalize;
-    grid-template-columns: 1fr fit-content;
-    grid-template-rows: repeat(5, min-content);
-    height: 500px;
-    padding: 90px 50px 90px 570px;
-    box-sizing: border-box;
-    grid-column: 1 / span 3;
-    order: -1;
+    &:hover {
+      filter: drop-shadow(0px 0px 8px rgb(107, 107, 107));
+    }
 
-    img {
-      width: 50%;
-      object-fit: contain;
+    &--invisible {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    &__flag {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+      filter: contrast(0.8);
+    }
+
+    &__info {
       position: absolute;
-      left: 50px;
+      bottom: 0px;
+      margin: 10px;
+      padding: 5px 10px;
+      border-radius: $small-radius;
+      width: fit-content;
+      height: min-content;
+      background-color: rgba(0, 0, 0, 0.7);
+      white-space: nowrap;
+      text-transform: uppercase;
+
+      &--secondary {
+        bottom: 38px;
+        background-color: rgba(0, 0, 0, 0.5);
+        font-weight: normal;
+        font-size: 0.7rem;
+      }
     }
 
-    p {
-      position: static;
+    &__details {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 10px;
+
+      p {
+        border-radius: $small-radius;
+        padding: 5px 10px;
+        background-color: rgba(0, 0, 0, 0.7);
+        white-space: nowrap;
+      }
+    }
+  
+    &--active {
+      display: grid;
+      grid-template-rows: 1fr min-content;
+      min-height: 650px;
+      grid-column: 1 / span 3;
+      order: -1;
+
+      .card {
+        &__flag {
+          max-height: 540px;
+        }
+        
+        &__info--primary {
+          position: absolute;
+          top: 10px;
+          font-size: 2rem;
+        }
+        
+        &__details {
+          p {
+            font-size: 1rem;
+            position: static;
+            margin: 5px;
+          }
+        }
+      }
     }
   }
-  }
-
 }
 
 .log {
