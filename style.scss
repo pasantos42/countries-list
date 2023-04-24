@@ -2,10 +2,12 @@
 
 $light-gray: hsl(0, 0%, 83%);
 $gray: hsl(0, 0%, 50%);
-$green: hsl(157, 85%, 74%);
+$hover: hsl(157, 85%, 74%);
 $small-radius: 5px;
 $large-radius: 10px;
+$card-size: 300px;
 $grid-gap: 20px;
+$tag-transparency: 0.7;
 
 html {
   scroll-behavior: smooth;
@@ -13,11 +15,12 @@ html {
   font-weight: bold;
 }
 
+/* **************************** HEADER */
+
 .header {
   display: grid;
   gap: 5px;
   margin-inline: auto;
-  margin-bottom: 50px;
   width: fit-content;
   text-align: center;
 
@@ -43,14 +46,16 @@ html {
     border: none;
 
     &:hover {
-      background-color: $green;
+      background-color: $hover;
     }
   }
 }
 
+/* **************************** GRID */
+
 .countries-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax($card-size, 1fr));
   gap: $grid-gap;
   margin-inline: auto;
   margin-block: 80px;
@@ -62,19 +67,19 @@ html {
   
   .card {
     cursor: pointer;
-    color: white;
+    filter: drop-shadow(0px 0px 8px hsl(0, 0%, 0%));
     opacity: 1;
-    overflow: hidden;
     transform: translateY(0px);
-    min-height: 220px;
-    background-color: white;
-    border-radius: $small-radius;
-    filter: drop-shadow(0px 0px 8px black);
-    text-decoration: none;
+    overflow: hidden;
     transition: opacity 0.3s, transform 0.3s, filter 0.3s ease-in-out;
+    border-radius: $small-radius;
+    min-height: 220px;
+    background-color: hsl(0, 0%, 100%);
+    text-decoration: none;
+    color: hsl(0, 0%, 100%);
   
     &:hover {
-      filter: drop-shadow(0px 0px 8px rgb(107, 107, 107));
+      filter: drop-shadow(0px 0px 8px hsl(0, 0%, 42%));
     }
 
     &--invisible {
@@ -97,15 +102,15 @@ html {
       border-radius: $small-radius;
       width: fit-content;
       height: min-content;
-      background-color: rgba(0, 0, 0, 0.7);
-      white-space: nowrap;
+      background-color: hsla(0, 0%, 0%, $tag-transparency);
       text-transform: uppercase;
+      white-space: nowrap;
 
       &--secondary {
         bottom: 38px;
-        background-color: rgba(0, 0, 0, 0.5);
-        font-weight: normal;
+        background-color: hsla(0, 0%, 0%, calc($tag-transparency - 0.2));
         font-size: 0.7rem;
+        font-weight: normal;
       }
     }
 
@@ -115,9 +120,9 @@ html {
       padding: 10px;
 
       p {
-        border-radius: $small-radius;
         padding: 5px 10px;
-        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: $small-radius;
+        background-color: rgba(0, 0, 0, $tag-transparency);
         white-space: nowrap;
       }
     }
@@ -125,9 +130,9 @@ html {
     &--active {
       display: grid;
       grid-template-rows: 1fr min-content;
-      min-height: 650px;
       grid-column: 1 / span 3;
       order: -1;
+      min-height: 650px;
 
       .card {
         &__flag {
@@ -142,15 +147,15 @@ html {
         
         &__details {
           p {
+            position: static;
             opacity: 0;
             transform: translateX(20px);
-            font-size: 1rem;
-            position: static;
             margin: 5px;
-
+            font-size: 1rem;
           }
+
           .tag--visible {
-            opacity: 1 !important;
+            opacity: 1;
             transform: translateY(0);
             transition: opacity 0.3s, transform 0.3s;
           }
@@ -160,9 +165,11 @@ html {
   }
 }
 
+/* **************************** LOG */
+
 .log {
   position: absolute;
-  top: 50%;
+  top: 52.5%;
   width: 100%;
   text-align: center;
   color: gray;
