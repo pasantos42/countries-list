@@ -42,7 +42,6 @@ async function fetchCountry(input)
       const capital = document.createElement('p');
       const area = document.createElement('p');
       const continents = document.createElement('p');
-      const currencies = document.createElement('p');
       const languages = document.createElement('p');
       const population = document.createElement('p');
       const subregion = document.createElement('p');
@@ -75,7 +74,6 @@ async function fetchCountry(input)
 
       grid.insertAdjacentElement('beforeend', card);
       card.insertAdjacentElement('beforeend', flag);
-
       card.insertAdjacentElement('beforeend', name);
       card.insertAdjacentElement('beforeend', capital);
       
@@ -99,18 +97,35 @@ async function fetchCountry(input)
           capital.innerText = data[i].capital[0];
           card.insertAdjacentElement('beforeend', capital);
           capital.classList.add('card__info--secondary');
+
+          let tags = document.querySelectorAll('.card--active p');
+          for (let j = 0; j < tags.length; j++) {
+              tags[j].classList.remove('tag--visible');
+          }
+
           card.classList.remove('card--active');
           details.remove();
+
           setTimeout(() => {
             card.removeAttribute('href', `#card${i - 3}`);
             card.setAttribute('href', '#');
           }, 500);
         } else {
+
           card.classList.add('card--active');
           capital.classList.remove('card__info--secondary');
           card.insertAdjacentElement('beforeend', details);
           capital.innerText = `Capital: ${data[i].capital[0]}`;
           details.insertAdjacentElement('afterbegin', capital);
+
+          let tags = document.querySelectorAll('.card--active p');
+          console.log("🚀 ~ file: main.js:121 ~ card.addEventListener ~ tags:", tags)
+          for (let j = 0; j < tags.length; j++) {
+            setTimeout(() => {
+              tags[j].classList.add('tag--visible');
+            }, j * 100);
+          }
+      
           setTimeout(() => {
             card.removeAttribute('href', '#');
             card.setAttribute('href', `#card${i - 3}`);
